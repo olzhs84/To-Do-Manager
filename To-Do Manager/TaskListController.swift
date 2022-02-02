@@ -12,6 +12,7 @@ class TaskListController: UITableViewController {
     var tasksStorage: TasksStorageProtocol = TaskStorage()
     var tasks: [TaskPriority:[TaskProtocol]] = [:]
     var sectionsTypesPosition: [TaskPriority] = [.impotant, .normal]
+    var tasksStatusPosition: [TaskStatus] = [.planned, .completed]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,15 @@ class TaskListController: UITableViewController {
         tasksStorage.loadTasks().forEach { task in
             tasks[task.type]?.append(task)
         }
+        
+        for (taskGroupPriority, taskGroup) in tasks {
+            tasks[taskGroupPriority] = taskGroup.sorted { task1, task2 in
+                let task1position = tasksStatusPosition.firstIndex(of: task1.status) ?? 0
+                let task2position = tasksStatusPosition.firstIndex(of: task2.status) ?? 0
+                return task1position < task2position
+            }
+        }
+
     }
 
     // MARK: - Table view data source
