@@ -20,8 +20,9 @@ class TaskStorage: TasksStorageProtocol {
         Task(title: "Отдать долг Арнольду", type: .impotant, status: .completed),
         Task(title: "Купить новый пылесос", type: .normal, status: .completed),
         Task(title: "Подарить цветы супруге", type: .impotant, status: .planned),
-        Task(title: "Позвонить родителям", type: .impotant, status: .planned)]
-                
+        Task(title: "Позвонить родителям", type: .impotant, status: .planned),
+        Task(title: "Пригласить на вечеринку Дольфа, Джеки, Леонардо, Уилла и Брюса", type: .impotant, status: .planned)]
+
         return testTasks
     }
     func saveTasks(_ tasks: [TaskProtocol]) {
