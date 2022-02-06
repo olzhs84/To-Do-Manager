@@ -30,6 +30,7 @@ class TaskListController: UITableViewController {
 
         loadTasks()
         
+        navigationItem.leftBarButtonItem = editButtonItem
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -169,32 +170,47 @@ class TaskListController: UITableViewController {
     }
     */
 
-    /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            let taskType = sectionsTypesPosition[indexPath.section]
+            
+            tasks[taskType]?.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
 
-    /*
+    
     // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+        let taskTypeFrom = sectionsTypesPosition[sourceIndexPath.section]
+        let taskTypeTo = sectionsTypesPosition[destinationIndexPath.section]
+        
+        guard let movedTask = tasks[taskTypeFrom]?[sourceIndexPath.row] else {
+            return
+        }
+        
+        tasks[taskTypeFrom]!.remove(at: sourceIndexPath.row)
+        tasks[taskTypeTo]!.insert(movedTask, at: destinationIndexPath.row)
+        
+        if taskTypeFrom != taskTypeTo {
+            tasks[taskTypeTo]![destinationIndexPath.row].type = taskTypeTo
+        }
+        
+        tableView.reloadData()
     }
-    */
+    
 
-    /*
     // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
+//    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+//        // Return false if you do not want the item to be re-orderable.
+//        return true
+//    }
+
 
     /*
     // MARK: - Navigation
