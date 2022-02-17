@@ -10,7 +10,7 @@
         <!--Task List Controller-->
         <scene sceneID="U2s-AR-fqr">
             <objects>
-                <tableViewController id="gyJ-LH-ExF" customClass="TaskListController" customModule="To_Do_Manager" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TaskListController" id="gyJ-LH-ExF" customClass="TaskListController" customModule="To_Do_Manager" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="mQ8-Ae-Bu0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -99,7 +99,7 @@
                     <navigationItem key="navigationItem" id="XX3-49-MVt">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="loH-bP-LSf">
                             <connections>
-                                <segue destination="bb1-n5-lBn" kind="show" id="Bus-u8-Szx"/>
+                                <segue destination="bb1-n5-lBn" kind="show" identifier="toCreateScreen" id="Bus-u8-Szx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -111,7 +111,7 @@
         <!--Task Edit Controller-->
         <scene sceneID="XnB-Sw-Qm8">
             <objects>
-                <tableViewController id="bb1-n5-lBn" customClass="TaskEditController" customModule="To_Do_Manager" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TaskEditController" id="bb1-n5-lBn" customClass="TaskEditController" customModule="To_Do_Manager" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="ezG-AD-5gR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -172,7 +172,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="gmb-6h-0dn" kind="show" id="Yma-6G-3IO"/>
+                                            <segue destination="gmb-6h-0dn" kind="show" identifier="toTaskTypeScreen" id="Yma-6G-3IO"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="oi6-3y-z2Z">
@@ -181,6 +181,25 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oi6-3y-z2Z" id="2is-RI-FMl">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Выполнена" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euC-1a-49A">
+                                                    <rect key="frame" x="20" y="11" width="325" height="21.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Zss-iq-rJa">
+                                                    <rect key="frame" x="345" y="6.5" width="51" height="31"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Zss-iq-rJa" firstAttribute="leading" secondItem="euC-1a-49A" secondAttribute="trailing" id="0Y2-qO-5gx"/>
+                                                <constraint firstItem="euC-1a-49A" firstAttribute="top" secondItem="2is-RI-FMl" secondAttribute="topMargin" id="6Mc-g7-N6c"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Zss-iq-rJa" secondAttribute="trailing" id="J5f-xc-Edc"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="euC-1a-49A" secondAttribute="bottom" id="PHc-zE-YW2"/>
+                                                <constraint firstItem="euC-1a-49A" firstAttribute="leading" secondItem="2is-RI-FMl" secondAttribute="leadingMargin" id="SqM-yV-sYZ"/>
+                                                <constraint firstItem="Zss-iq-rJa" firstAttribute="centerY" secondItem="2is-RI-FMl" secondAttribute="centerY" id="zPU-O5-zea"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -191,8 +210,15 @@
                             <outlet property="delegate" destination="bb1-n5-lBn" id="pyv-Ki-hy4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="7ic-uX-FoQ"/>
+                    <navigationItem key="navigationItem" id="7ic-uX-FoQ">
+                        <barButtonItem key="rightBarButtonItem" title="Сохранить" id="AbM-c0-0jj">
+                            <connections>
+                                <action selector="saveTask:" destination="bb1-n5-lBn" id="K9f-5H-ESv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="taskStatusSwitch" destination="Zss-iq-rJa" id="emp-rO-45F"/>
                         <outlet property="taskTitle" destination="7wg-c4-bnL" id="rF2-ue-Hw4"/>
                         <outlet property="taskTypeLabel" destination="GET-1o-RTs" id="VCX-Rh-txf"/>
                     </connections>

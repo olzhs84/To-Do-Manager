@@ -23,12 +23,26 @@ class TaskEditController: UITableViewController {
     
     @IBOutlet var taskTitle: UITextField!
     @IBOutlet var taskTypeLabel: UILabel!
+    @IBOutlet var taskStatusSwitch: UISwitch!
+    
+    @IBAction func saveTask(_ sender: UIBarButtonItem) {
+        let title = taskTitle?.text ?? ""
+        let type = taskType
+        let status: TaskStatus = taskStatusSwitch.isOn ? .completed : .planned
+        
+        doAfterEdit?(title, type, status)
+        navigationController?.popViewController(animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         taskTypeLabel?.text = taskTitles[taskType]
         taskTitle?.text = taskText
+        
+        if taskStatus == .completed {
+            taskStatusSwitch.isOn = true
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -93,14 +107,24 @@ class TaskEditController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "toTaskTypeScreen" {
+            let destination = segue.destination as! TaskTypeController
+            destination.selectedType = taskType
+            destination.doAfterTypeSelected = { [unowned self] selectedType in
+                taskType = selectedType
+                taskTypeLabel?.text = taskTitles[taskType]
+                
+            }
+            
+        }
     }
-    */
+    
 
 }

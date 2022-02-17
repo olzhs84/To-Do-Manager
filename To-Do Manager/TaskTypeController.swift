@@ -18,6 +18,8 @@ class TaskTypeController: UITableViewController {
     
     var selectedType: TaskPriority = .normal
     
+    var doAfterTypeSelected: ((TaskPriority) -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,7 +67,13 @@ class TaskTypeController: UITableViewController {
         return cell
     }
    
-
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedType = taskTypesInformation[indexPath.row].type
+        doAfterTypeSelected?(selectedType)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
